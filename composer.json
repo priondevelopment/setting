@@ -1,0 +1,46 @@
+{
+    "name": "priondevelopment/setting",
+    "description": "Create and save settings.",
+    "keywords": ["setting","settings"],
+    "license": "MIT",
+    "homepage": "https://priondevelopment.com/packages/setting",
+    "support": {
+        "issues": "https://github.com/priondevelopment/setting/issues",
+        "source": "https://github.com/priondevelopment/setting"
+    },
+    "authors": [
+        {
+            "name": "Brandon Best",
+            "email": "brandonbest@priondevelopment.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.1",
+        "illuminate/cache": "~5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Setting\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Setting\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Setting\\SettingServiceProvider"
+            ],
+            "aliases": {
+                "Setting": "Setting\\SettingFacade"
+            }
+        }
+    }
+}
