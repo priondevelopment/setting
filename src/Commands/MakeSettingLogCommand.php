@@ -14,7 +14,7 @@ namespace Setting\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Facades\Config;
 
-class MakeSettingCommand extends GeneratorCommand
+class MakeSettingLogCommand extends GeneratorCommand
 {
     /**
      * The console command name.
