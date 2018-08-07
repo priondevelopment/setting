@@ -31,6 +31,9 @@ class SettingServiceProvider extends ServiceProvider
      */
     protected $commands = [
         'Migration' => 'command.setting.migration',
+        'MigrationSetting' => 'command.setting.migration-setting',
+        'MigrationSettingLog' => 'command.setting.migration-setting-log',
+        'Setup' => 'command.setting.setup',
     ];
 
     /**
@@ -58,10 +61,10 @@ class SettingServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        foreach ($countries as $country) {
-            $path = __DIR__ . '/config/setting/setting.php';
-            $publishes[$path] = config_path('setting/setting.php');
-        }
+        // Register published configuration.
+        $this->publishes([
+            __DIR__.'/config/setting.php' => config_path('setting.php'),
+        ], 'setting');
     }
 
 
@@ -73,6 +76,8 @@ class SettingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerSetting();
+
+        $this->registerCommands();
 
         $this->mergeConfig();
     }
@@ -116,4 +121,50 @@ class SettingServiceProvider extends ServiceProvider
             'setting'
         );
     }
+
+
+    /**
+     * Register the given commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        foreach (array_keys($this->commands) as $command) {
+            $method = "register{$command}Command";
+
+            call_user_func_array([$this, $method], []);
+        }
+
+        $this->commands(array_values($this->commands));
+    }
+
+    protected function registerMigrationCommand()
+    {
+        $this->app->singleton('command.setting.migration', function () {
+            return new \Setting\Commands\MigrationCommand();
+        });
+    }
+
+    protected function registerMigrationSettingCommand()
+    {
+        $this->app->singleton('command.setting.migration-setting', function ($app) {
+            return new \Setting\Commands\MakeSettingCommand($app['files']);
+        });
+    }
+
+    protected function registerMigrationSettingLogCommand()
+    {
+        $this->app->singleton('command.setting.migration-setting-log', function ($app) {
+            return new \Setting\Commands\MakeSettingLogCommand($app['files']);
+        });
+    }
+
+    protected function registerSetupCommand()
+    {
+        $this->app->singleton('command.setting.setup', function () {
+            return new \Setting\Commands\SetupCommand();
+        });
+    }
+
 }
