@@ -1,42 +1,53 @@
 <?php
 
-namespace Setting\Commands;
-
-/**
- * This file is part of Seetting,
- * a role & permission management solution for Laravel.
- *
- * @license MIT
- * @company Prion Development
- * @package Setting
- */
+namespace PrionUsers\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Composer;
+use Illuminate\Filesystem\Filesystem;
 
-class MigrationCommand extends Command
+class PrionSettingsTableMigation extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'setting:migration';
+    protected $name = 'prionsettings:migration';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Creates a migration for Setting Tables.';
+    protected $description = 'Create a migration for the settings table';
 
     /**
-     * Suffix of the migration name.
+     * The filesystem instance.
      *
-     * @var string
+     * @var \Illuminate\Filesystem\Filesystem
      */
-    protected $migrationSuffix = 'setting';
+    protected $files;
+
+    /**
+     * @var \Illuminate\Support\Composer
+     */
+    protected $composer;
+
+    /**
+     * Create a new notifications table command instance.
+     *
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param  \Illuminate\Support\Composer    $composer
+     * @return void
+     */
+    public function __construct(Filesystem $files, Composer $composer)
+    {
+        parent::__construct();
+
+        $this->files = $files;
+        $this->composer = $composer;
+    }
 
     /**
      * Execute the console command.
@@ -45,9 +56,9 @@ class MigrationCommand extends Command
      */
     public function handle()
     {
-        $this->laravel->view->addNamespace('setting', substr(__DIR__, 0, -8).'views');
+        $this->laravel->view->addNamespace('prionsettings\\PrionSettings', substr(__DIR__, 0, -8).'views');
         $this->line('');
-        $this->info("Setting Migration Creation.");
+        $this->info("Prion Development Settigs Migration");
         $this->line('');
         $this->comment($this->generateMigrationMessage());
 
@@ -94,8 +105,8 @@ class MigrationCommand extends Command
         $migrationPath = $this->getMigrationPath();
 
         $output = $this->laravel->view
-            ->make('setting::migration')
-            ->with(['setting' => config('setting')])
+            ->make('prionsettings:migration')
+            ->with(['prionsettings' => config('prionsettings')])
             ->render();
 
         if (!file_exists($migrationPath) && $fs = fopen($migrationPath, 'x')) {
@@ -116,7 +127,7 @@ class MigrationCommand extends Command
      */
     protected function generateMigrationMessage()
     {
-        $tables = Collection::make(config('setting.tables'))
+        $tables = Collection::make(config('prionsettings.tables'))
             ->sort();
 
         return "A migration that creates {$tables->implode(', ')} "
@@ -132,10 +143,11 @@ class MigrationCommand extends Command
      */
     protected function getExistingMigrationsWarning(array $existingMigrations)
     {
-        $base = "Setting migrations already exist.\nFollowing file was found: ";
-
+        $base = "Prion Development Settings migrations already exist.\nFollowing";
         if (count($existingMigrations) > 1) {
-            $base = str_replace('file was', 'files were', $base);
+            $base .= " files were found: ";
+        } else {
+            $base .= " file was found: ";
         }
 
         return $base . array_reduce($existingMigrations, function ($carry, $fileName) {
@@ -173,4 +185,5 @@ class MigrationCommand extends Command
 
         return database_path("migrations/${date}_{$this->migrationSuffix}.php");
     }
+
 }
