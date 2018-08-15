@@ -14,7 +14,7 @@ namespace Setting\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 
-class Setting extends Model
+class SettingLog extends Model
 {
     /**
      * The database table used by the model.
@@ -32,6 +32,6 @@ class Setting extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('setting.tables.settings');
+        $this->table = config('setting.tables.settings_log');
     }
 }

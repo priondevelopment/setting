@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTables extends Migration
+class SettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,26 +13,19 @@ class CreateUsersTables extends Migration
      */
     public function up()
     {
-
         /**
-         *  Create Settings Table
+         * Create the Settings Table
          *
          */
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::table('settings', function (Blueprint $table) {
             $table->increments('id');
-            $table
-                ->string('key', 300)
+            $table->string('key')
                 ->nullable();
-            $table
-                ->string('type', 300)
-                ->nullable();
-            $table
-                ->text('value')
+            $table->text('value')
                 ->nullable();
 
-            $table->index('key', 'prion_settings_key_index');
+            $table->index('key', 'settings_index');
         });
-
     }
 
     /**

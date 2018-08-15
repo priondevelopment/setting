@@ -1,18 +1,19 @@
 <?php
 
-namespace PrionSettings;
+namespace Setting;
 
 /**
- * This file is part of Laratrust,
- * a role & permission management solution for Laravel.
+ * This file is part of Setting,
+ * setting data for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @company Prion Development
+ * @package Setting
  */
 
 use Illuminate\Support\Facades\Facade;
 
-class PrionSettingsFacade extends Facade
+class SettingFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -21,6 +22,6 @@ class PrionSettingsFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'prionsettings';
+        return 'setting';
     }
 }
