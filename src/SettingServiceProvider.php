@@ -165,10 +165,15 @@ class SettingServiceProvider extends ServiceProvider
         });
     }
 
+
+    /**
+     * Register Command to Setup Settings Service
+     *
+     */
     protected function registerSetupCommand()
     {
         $this->app->singleton('command.setting.setup', function () {
-            return new \Setting\Commands\SetupCommand();
+            return new \Setting\Commands\SetupCommand;
         });
     }
 
