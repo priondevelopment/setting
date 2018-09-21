@@ -28,7 +28,7 @@ class SetupCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Setup migration and models for Setting';
+    protected $description = 'Setup migration and models for Setting Package';
 
     /**
      * Commands to call with their description.
@@ -39,6 +39,7 @@ class SetupCommand extends Command
         'setting:migration' => 'Creating migration',
         'setting:setting' => 'Creating Setting model',
         'setting:setting_log' => 'Creating Setting Log model',
+        'setting:setting_observer' => 'Creating Setting Observer',
     ];
 
     /**

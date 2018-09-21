@@ -14,21 +14,21 @@ namespace Setting\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Facades\Config;
 
-class MakeSettingCommand extends GeneratorCommand
+class MakeSettingObserverCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'setting:setting';
+    protected $name = 'setting:setting_observer';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create Setting Model';
+    protected $description = 'Create Setting Observer';
 
     /**
      * The type of class being generated.
@@ -44,7 +44,7 @@ class MakeSettingCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/setting.stub';
+        return __DIR__.'/stubs/setting_observer.stub';
     }
 
     /**
@@ -54,7 +54,7 @@ class MakeSettingCommand extends GeneratorCommand
      */
     protected function getNameInput()
     {
-        return config('setting.models.settings', 'Setting');
+        return config('setting.observers.settings_observer', 'SettingObserver');
     }
 
     /**
@@ -65,7 +65,7 @@ class MakeSettingCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Models';
+        return $rootNamespace . '\Models\Observer';
     }
 
     /**

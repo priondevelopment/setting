@@ -4,7 +4,7 @@ namespace DummyNamespace;
 
 use Setting\Models;
 
-class DummyClass extends Models\SettingLog
+class DummyClass extends Models\Observers\SettingObserver
 {
     //
 }

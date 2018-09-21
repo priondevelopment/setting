@@ -33,8 +33,9 @@ class SettingServiceProvider extends ServiceProvider
      */
     protected $commands = [
         'Migration' => 'command.setting.migration',
-        'MigrationSetting' => 'command.setting.migration-setting',
-        'MigrationSettingLog' => 'command.setting.migration-setting-log',
+        'ModelSetting' => 'command.setting.model-setting',
+        'ModelSettingLog' => 'command.setting.model-setting-log',
+        'ModelSettingObserver' => 'command.setting.model-setting-observer',
         'Setup' => 'command.setting.setup',
     ];
 
@@ -151,19 +152,28 @@ class SettingServiceProvider extends ServiceProvider
         });
     }
 
-    protected function registerMigrationSettingCommand()
+    protected function registerModelSettingCommand()
     {
-        $this->app->singleton('command.setting.migration-setting', function ($app) {
+        $this->app->singleton('command.setting.model-setting', function ($app) {
             return new \Setting\Commands\MakeSettingCommand($app['files']);
         });
     }
 
-    protected function registerMigrationSettingLogCommand()
+    protected function registerModelSettingLogCommand()
     {
-        $this->app->singleton('command.setting.migration-setting-log', function ($app) {
+        $this->app->singleton('command.setting.model-setting-log', function ($app) {
             return new \Setting\Commands\MakeSettingLogCommand($app['files']);
         });
     }
+
+
+    protected function registerModelSettingObserverCommand()
+    {
+        $this->app->singleton('command.setting.model-setting-observer', function ($app) {
+            return new \Setting\Commands\MakeSettingObserverCommand($app['files']);
+        });
+    }
+
 
 
     /**

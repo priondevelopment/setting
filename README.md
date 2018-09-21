@@ -14,10 +14,10 @@ PrionDevelopment\Providers\PrionSettingProvider::class
 Publish configuration files
 `php artisan vendor:publish --tag="prionsetting"`
 
-Automated Setup
+### Automated Setup
 `php artisan setting:setup`
 
-Manual Setup
+### Manual Setup
 
 Publish the Migrations
 `php artisan setting:migration`
@@ -26,6 +26,7 @@ Publish the Migrations
 Publish the Models
 `php artisan setting:setting`
 `php artisan setting:setting_log`
+`php artisan setting:setting_observer`
 
 
 Clear or reset your Laravel config cache.
