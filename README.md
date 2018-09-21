@@ -11,13 +11,10 @@ Tested on Lumen 5.6
 In config/app.php, add the following provider:  
 `PrionDevelopment\Providers\PrionSettingProvider::class`
 
-Publish configuration files  
-`php artisan vendor:publish --tag="prionsetting"`  
-
-### Automated Setup
+## Automated Setup
 `php artisan setting:setup`  
 
-### Manual Setup
+## Manual Setup
 
 Publish the Migrations  
 `php artisan setting:migration`  
