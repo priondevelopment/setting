@@ -65,8 +65,9 @@ class SettingServiceProvider extends ServiceProvider
     public function boot()
     {
         // Register published configuration.
+        $app_path = app()->basePath('config/setting.php');
         $this->publishes([
-            __DIR__.'/config/setting.php' => config_path('setting.php'),
+            __DIR__.'/config/setting.php' => $app_path,
         ], 'setting');
 
         // Register Loggingn Observer
