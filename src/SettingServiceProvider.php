@@ -32,6 +32,7 @@ class SettingServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
+        'Config' => 'command.setting.config',
         'Migration' => 'command.setting.migration',
         'ModelSetting' => 'command.setting.model-setting',
         'ModelSettingLog' => 'command.setting.model-setting-log',
@@ -65,12 +66,12 @@ class SettingServiceProvider extends ServiceProvider
     public function boot()
     {
         // Register published configuration.
-        $app_path = app()->basePath('config/setting.php');
+        $app_path = app()->basePath('config/prionsetting.php');
         $this->publishes([
-            __DIR__.'/config/setting.php' => $app_path,
-        ], 'setting');
+            __DIR__.'/config/prionsetting.php' => $app_path,
+        ], 'prionsetting');
 
-        // Register Loggingn Observer
+        // Register Logging Observer
         Models\Setting::observe(Models\Observers\SettingObserver::class);
     }
 
@@ -124,8 +125,8 @@ class SettingServiceProvider extends ServiceProvider
     private function mergeConfig()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/config/setting.php',
-            'setting'
+            __DIR__ . '/config/prionsetting.php',
+            'prionsetting'
         );
     }
 
@@ -185,6 +186,18 @@ class SettingServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.setting.setup', function () {
             return new \Setting\Commands\SetupCommand;
+        });
+    }
+
+
+    /**
+     * Register Command to Setup Setting Config
+     *
+     */
+    protected function registerConfigCommand()
+    {
+        $this->app->singleton('command.setting.config', function () {
+            return new \Setting\Commands\ConfigCommand;
         });
     }
 
