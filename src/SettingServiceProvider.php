@@ -124,6 +124,8 @@ class SettingServiceProvider extends ServiceProvider
      */
     private function mergeConfig()
     {
+        $this->app->configure('prionsetting');
+
         $this->mergeConfigFrom(
             __DIR__ . '/config/prionsetting.php',
             'prionsetting'

@@ -177,9 +177,9 @@ class ConfigCommand extends Command
      */
     private function configFiles()
     {
-        $configs = scandir(__DIR__.'/../config');
-        unset($configs[0]);
-        unset($configs[1]);
+        $configs = array_filter(scandir(__DIR__.'/../config'), function($item) {
+            return !is_dir(__DIR__.'/../config/' . $item);
+        });
 
         return $configs;
     }
