@@ -95,7 +95,7 @@ class MigrationCommand extends Command
 
         $output = $this->laravel->view
             ->make('setting::migration')
-            ->with(['setting' => config('setting')])
+            ->with(['setting' => config('prionsetting')])
             ->render();
 
         if (!file_exists($migrationPath) && $fs = fopen($migrationPath, 'x')) {
@@ -116,7 +116,7 @@ class MigrationCommand extends Command
      */
     protected function generateMigrationMessage()
     {
-        $tables = Collection::make(config('setting.tables'))
+        $tables = collect(config('setting.tables'))
             ->sort();
 
         return "A migration that creates {$tables->implode(', ')} "

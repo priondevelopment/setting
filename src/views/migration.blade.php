@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SettingsTable extends Migration
+class Setting extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class SettingsTable extends Migration
          * Create the Settings Table
          *
          */
-        Schema::table('{{ $setting['tables']['settings'] }}', function (Blueprint $table) {
+        Schema::create('{{ $setting['tables']['settings'] }}', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key')
                 ->nullable();
@@ -32,7 +32,7 @@ class SettingsTable extends Migration
          * DB Log of Changes
          *
          */
-        Schema::table('{{ $setting['tables']['settings_log'] }}', function (Blueprint $table) {
+        Schema::create('{{ $setting['tables']['settings_log'] }}', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')
                 ->default('0');
