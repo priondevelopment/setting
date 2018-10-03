@@ -50,5 +50,5 @@ interface SettingInterface
     public function exists($key);
 
 
-    private function checkValue($value)
+    private function checkValue($value);
 }
